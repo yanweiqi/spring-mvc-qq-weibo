@@ -46,6 +46,7 @@ import com.qq.connect.javabeans.qzone.UserInfoBean;
  * 真正登录的POST请求由Filter完成,
  * 
  * @author calvin
+ * eclipse test git change
  */
 @Controller
 @RequestMapping(value = "/login")
