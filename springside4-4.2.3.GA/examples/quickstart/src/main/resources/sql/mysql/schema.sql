@@ -17,5 +17,7 @@ create table ss_user (
 	salt varchar(64) not null,
 	roles varchar(255) not null,
 	register_date timestamp not null default 0,
+    qq_login VARCHAR(64),
+    weibo_login VARCHAR(64),
 	primary key (id)
 ) engine=InnoDB;

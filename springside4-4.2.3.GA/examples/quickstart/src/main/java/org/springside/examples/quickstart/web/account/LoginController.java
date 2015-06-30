@@ -7,7 +7,7 @@ package org.springside.examples.quickstart.web.account;
 
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,12 +28,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springside.examples.quickstart.service.account.AccountService;
 import org.springside.examples.quickstart.service.account.ShiroDbRealm;
 
-import weibo4j.Account;
 import weibo4j.Oauth;
 import weibo4j.Users;
 import weibo4j.http.AccessToken;
 import weibo4j.model.User;
-import weibo4j.org.json.JSONObject;
 
 import com.qq.connect.QQConnectException;
 import com.qq.connect.api.OpenID;
@@ -150,15 +148,20 @@ public class LoginController {
 				return "redirect:/login";
 			} else {
 				accessToken   = accessTokenObj.getAccessToken();
+				//new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Long.valueOf(accessTokenObj.getExpireIn())*1000L);
 				tokenExpireIn = accessTokenObj.getExpireIn();
-				logger.info("thrid login weibo user accessToken:"+accessToken);
-				logger.info("thrid login weibo user tokenExpireIn:"+tokenExpireIn);
+				uid           = accessTokenObj.getUid();
+				logger.info("thrid login weibo user accessToken: "+accessToken);
+				logger.info("thrid login weibo user tokenExpireIn: "+tokenExpireIn);
+				logger.info("thrid login weibo user uid: "+uid);
 				
-				Account account = new Account();
-				account.client.setToken(accessToken);
-				JSONObject json_uid = account.getUid() ; // 利用获取到的accessToken 去获取当前用的openid -------- start
-				uid = json_uid.toString().split(":")[1].replace("}", "");
-				logger.info(uid);
+				/**
+				   Account account = new Account();
+				   account.client.setToken(accessToken);
+				   JSONObject json_uid = account.getUid() ; // 利用获取到的accessToken 去获取当前用的openid -------- start
+				   uid = json_uid.toString().split(":")[1].replace("}", "");
+				   logger.info(uid);
+				*/
 
 				Users um = new Users();
 				um.client.setToken(accessToken);
